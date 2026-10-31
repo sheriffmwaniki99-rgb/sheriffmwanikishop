@@ -1,0 +1,58 @@
+(document.getElementById("pname").value || "").trim();
+const desc=(document.getElementById("pdesc").value || "").trim();
+const price=Number(document.getElementById("pprice").value);
+
+if(!name || !desc || !Number.isFinite(price) || price<0){
+alert("Enter a valid product name, description and price.");
+return;
+}
+
+products.push({name,desc,price});
+save();
+renderProducts();
+renderAdmin();
+
+document.getElementById("pname").value="";
+document.getElementById("pdesc").value="";
+document.getElementById("pprice").value="";
+alert("Product added successfully!");
+}
+
+function deleteProduct(i){
+if(confirm("Delete this product?")){
+products.splice(i,1);
+save();
+renderProducts();
+renderAdmin();
+}
+}
+
+function renderAdmin(){
+document.getElementById("totalProducts").textContent=products.length;
+document.getElementById("totalOrders").textContent=orders.length;
+
+const sales=orders.reduce((sum,o)=>sum+(Number(o.price)||0),0);
+document.getElementById("totalSales").textContent="KES "+sales.toLocaleString();
+
+document.getElementById("productTable").innerHTML=products.map((p,i)=>`
+<tr>
+<td>${safe(p.name)}</td>
+<td>KES ${Number(p.price).toLocaleString()}</td>
+<td><button class="adminbtn danger" onclick="deleteProduct(${i})">Delete</button></td>
+</tr>
+`).join("");
+
+document.getElementById("orderTable").innerHTML=orders.map(o=>`
+<tr>
+<td>${safe(o.name)}</td>
+<td>KES ${Number(o.price).toLocaleString()}</td>
+<td>${safe(o.date)}</td>
+</tr>
+`).join("");
+}
+
+renderProducts();
+
+</script>
+</body>
+</html>
