@@ -11,6 +11,7 @@
     th, td { border: 1px solid #444; padding: 10px; text-align: left; }
     th { background-color: #333; }
     .danger { background-color: #ff4d4d; color: white; border: none; padding: 5px 10px; cursor: pointer; }
+    #searchInput { width: 100%; padding: 10px; margin-bottom: 20px; background-color: #333; border: 1px solid #444; color: #fff; }
   </style>
 </head>
 <body>
@@ -25,6 +26,7 @@
   </div>
 
   <h3>Product List</h3>
+  <input type="text" id="searchInput" placeholder="Search products..." onkeyup="filterProducts()">
   <table>
     <thead>
       <tr>
@@ -49,12 +51,32 @@
   <canvas id="salesChart" width="400" height="200"></canvas>
 
   <script>
-    // Initialize data arrays
     let products = JSON.parse(localStorage.getItem('products')) || [];
     let orders = JSON.parse(localStorage.getItem('orders')) || [];
 
     function save() {
       localStorage.setItem('products', JSON.stringify(products));
+    }
+
+    function filterProducts() {
+      const input = document.getElementById('searchInput');
+      const filter = input.value.toLowerCase();
+      const table = document.getElementById("productTable");
+      const tr = table.getElementsByTagName('tr');
+
+      for (let i = 0; i < tr.length; i++) {
+        const tdName = tr[i].getElementsByTagName('td')[0];
+        const tdDesc = tr[i].getElementsByTagName('td')[1];
+        if (tdName || tdDesc) {
+          const nameValue = tdName.textContent || tdName.innerText;
+          const descValue = tdDesc.textContent || tdDesc.innerText;
+          if (nameValue.toLowerCase().indexOf(filter) > -1 || descValue.toLowerCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
     }
 
     function renderProducts() {
@@ -112,7 +134,6 @@
       document.getElementById("totalSales").textContent = "KES " + sales.toLocaleString();
     }
 
-    // Initialize Chart
     const ctx = document.getElementById('salesChart').getContext('2d');
     new Chart(ctx, {
       type: 'line',
@@ -133,10 +154,172 @@
       }
     });
 
-    // Initial render
     renderProducts();
     renderAdmin();
   </script>
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background-color: #121212; color: #fff; }
+    input, button { padding: 8px; margin: 5px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #444; padding: 10px; text-align: left; }
+    th { background-color: #333; }
+    .danger { background-color: #ff4d4d; color: white; border: none; padding: 5px 10px; cursor: pointer; }
+    #searchInput { width: 100%; padding: 10px; margin-bottom: 20px; background-color: #333; border: 1px solid #444; color: #fff; }
+  </style>
+</head>
+<body>
+
+  <h2>Admin Dashboard</h2>
+  
+  <div>
+    <input type="text" id="pname" placeholder="Product Name">
+    <input type="text" id="pdesc" placeholder="Product Description">
+    <input type="number" id="pprice" placeholder="Price">
+    <button type="submit" id="submitProduct">Add Product</button>
+  </div>
+
+  <h3>Product List</h3>
+  <input type="text" id="searchInput" placeholder="Search products..." onkeyup="filterProducts()">
+  <table>
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Product Description</th>
+        <th>Price</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="productTable">
+      <!-- Products will be rendered here -->
+    </tbody>
+  </table>
+
+  <h3>Summary</h3>
+  <p>Total Products: <span id="totalProducts">0</span></p>
+  <p>Total Orders: <span id="totalOrders">0</span></p>
+  <p>Total Sales: <span id="totalSales">KES 0</span></p>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <h3>Sales Chart</h3>
+  <canvas id="salesChart" width="400" height="200"></canvas>
+
+  <script>
+    let products = JSON.parse(localStorage.getItem('products')) || [];
+    let orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+    function save() {
+      localStorage.setItem('products', JSON.stringify(products));
+    }
+
+    function filterProducts() {
+      const input = document.getElementById('searchInput');
+      const filter = input.value.toLowerCase();
+      const table = document.getElementById("productTable");
+      const tr = table.getElementsByTagName('tr');
+
+      for (let i = 0; i < tr.length; i++) {
+        const tdName = tr[i].getElementsByTagName('td')[0];
+        const tdDesc = tr[i].getElementsByTagName('td')[1];
+        if (tdName || tdDesc) {
+          const nameValue = tdName.textContent || tdName.innerText;
+          const descValue = tdDesc.textContent || tdDesc.innerText;
+          if (nameValue.toLowerCase().indexOf(filter) > -1 || descValue.toLowerCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+
+    function renderProducts() {
+      const tableBody = document.getElementById("productTable");
+      tableBody.innerHTML = products.map((p, i) => `
+        <tr>
+          <td>${escapeHtml(p.name)}</td>
+          <td>${escapeHtml(p.desc)}</td>
+          <td>KES ${Number(p.price).toLocaleString()}</td>
+          <td><button class="danger" onclick="deleteProduct(${i})">Delete</button></td>
+        </tr>
+      `).join('');
+      document.getElementById("totalProducts").textContent = products.length;
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    document.getElementById('submitProduct').addEventListener('click', function() {
+      const name = document.getElementById("pname").value.trim();
+      const desc = document.getElementById("pdesc").value.trim();
+      const price = Number(document.getElementById("pprice").value);
+
+      if (!name || !desc || !Number.isFinite(price) || price < 0) {
+        alert("Enter a valid product name, description and price.");
+        return;
+      }
+
+      products.push({ name, desc, price });
+      save();
+      renderProducts();
+      renderAdmin();
+
+      document.getElementById("pname").value = "";
+      document.getElementById("pdesc").value = "";
+      document.getElementById("pprice").value = "";
+      alert("Product added successfully!");
+    });
+
+    function deleteProduct(i) {
+      if (confirm("Delete this product?")) {
+        products.splice(i, 1);
+        save();
+        renderProducts();
+        renderAdmin();
+      }
+    }
+
+    function renderAdmin() {
+      document.getElementById("totalOrders").textContent = orders.length;
+      const sales = orders.reduce((sum, o) => sum + (Number(o.price) || 0), 0);
+      document.getElementById("totalSales").textContent = "KES " + sales.toLocaleString();
+    }
+
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Sales ($)',
+          data: [1200, 1900, 3000, 5000, 2300, 3400],
+          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderWidth: 2,
+          tension: 0.1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+
+    renderProducts();
+    renderAdmin();
+  </script>
+
+</body>
+</html>
+
