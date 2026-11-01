@@ -4,16 +4,78 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Business Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background-color: #121212; color: #fff; }
+    input, button { padding: 8px; margin: 5px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #444; padding: 10px; text-align: left; }
+    th { background-color: #333; }
+    .danger { background-color: #ff4d4d; color: white; border: none; padding: 5px 10px; cursor: pointer; }
+  </style>
 </head>
 <body>
 
   <h2>Admin Dashboard</h2>
-  <input type="text" id="pname" placeholder="Product Name">
-  <input type="text" id="pdesc" placeholder="Product Description">
-  <input type="number" id="pprice" placeholder="Price">
-  <button type="submit" id="submitProduct">Add Product</button>
+  
+  <div>
+    <input type="text" id="pname" placeholder="Product Name">
+    <input type="text" id="pdesc" placeholder="Product Description">
+    <input type="number" id="pprice" placeholder="Price">
+    <button type="submit" id="submitProduct">Add Product</button>
+  </div>
+
+  <h3>Product List</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Product Description</th>
+        <th>Price</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="productTable">
+      <!-- Products will be rendered here -->
+    </tbody>
+  </table>
+
+  <h3>Summary</h3>
+  <p>Total Products: <span id="totalProducts">0</span></p>
+  <p>Total Orders: <span id="totalOrders">0</span></p>
+  <p>Total Sales: <span id="totalSales">KES 0</span></p>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <h3>Sales Chart</h3>
+  <canvas id="salesChart" width="400" height="200"></canvas>
 
   <script>
+    // Initialize data arrays
+    let products = JSON.parse(localStorage.getItem('products')) || [];
+    let orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+    function save() {
+      localStorage.setItem('products', JSON.stringify(products));
+    }
+
+    function renderProducts() {
+      const tableBody = document.getElementById("productTable");
+      tableBody.innerHTML = products.map((p, i) => `
+        <tr>
+          <td>${escapeHtml(p.name)}</td>
+          <td>${escapeHtml(p.desc)}</td>
+          <td>KES ${Number(p.price).toLocaleString()}</td>
+          <td><button class="danger" onclick="deleteProduct(${i})">Delete</button></td>
+        </tr>
+      `).join('');
+      document.getElementById("totalProducts").textContent = products.length;
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
     document.getElementById('submitProduct').addEventListener('click', function() {
       const name = document.getElementById("pname").value.trim();
       const desc = document.getElementById("pdesc").value.trim();
@@ -24,10 +86,7 @@
         return;
       }
 
-      const newProduct = { name, desc, price };
-      
-      // Assuming you have a 'products' array and save() function defined elsewhere
-      products.push(newProduct);
+      products.push({ name, desc, price });
       save();
       renderProducts();
       renderAdmin();
@@ -48,20 +107,14 @@
     }
 
     function renderAdmin() {
-      document.getElementById("totalProducts").textContent = products.length;
-      // Assuming 'orders' array exists
       document.getElementById("totalOrders").textContent = orders.length;
-
       const sales = orders.reduce((sum, o) => sum + (Number(o.price) || 0), 0);
       document.getElementById("totalSales").textContent = "KES " + sales.toLocaleString();
     }
-  </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <canvas id="salesChart" width="400" height="200"></canvas>
-  <script>
+    // Initialize Chart
     const ctx = document.getElementById('salesChart').getContext('2d');
-    const salesChart = new Chart(ctx, {
+    new Chart(ctx, {
       type: 'line',
       data: {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
@@ -76,13 +129,13 @@
       },
       options: {
         responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
+        scales: { y: { beginAtZero: true } }
       }
     });
+
+    // Initial render
+    renderProducts();
+    renderAdmin();
   </script>
 
 </body>
