@@ -1,87 +1,89 @@
-(document.getElementById("pname").value || "").trim();
-const desc=(document.getElementById("pdesc").value || "").trim();
-const price=Number(document.getElementById("pprice").value);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Dashboard</title>
+</head>
+<body>
 
-if(!name || !desc || !Number.isFinite(price) || price<0){
-alert("Enter a valid product name, description and price.");
-return;
-}
+  <h2>Admin Dashboard</h2>
+  <input type="text" id="pname" placeholder="Product Name">
+  <input type="text" id="pdesc" placeholder="Product Description">
+  <input type="number" id="pprice" placeholder="Price">
+  <button type="submit" id="submitProduct">Add Product</button>
 
-products.push({name,desc,price});
-save();
-renderProducts();
-renderAdmin();
+  <script>
+    document.getElementById('submitProduct').addEventListener('click', function() {
+      const name = document.getElementById("pname").value.trim();
+      const desc = document.getElementById("pdesc").value.trim();
+      const price = Number(document.getElementById("pprice").value);
 
-document.getElementById("pname").value="";
-document.getElementById("pdesc").value="";
-document.getElementById("pprice").value="";
-alert("Product added successfully!");
-}
+      if (!name || !desc || !Number.isFinite(price) || price < 0) {
+        alert("Enter a valid product name, description and price.");
+        return;
+      }
 
-function deleteProduct(i){
-if(confirm("Delete this product?")){
-products.splice(i,1);
-save();
-renderProducts();
-renderAdmin();
-}
-}
+      const newProduct = { name, desc, price };
+      
+      // Assuming you have a 'products' array and save() function defined elsewhere
+      products.push(newProduct);
+      save();
+      renderProducts();
+      renderAdmin();
 
-function renderAdmin(){
-document.getElementById("totalProducts").textContent=products.length;
-document.getElementById("totalOrders").textContent=orders.length;
+      document.getElementById("pname").value = "";
+      document.getElementById("pdesc").value = "";
+      document.getElementById("pprice").value = "";
+      alert("Product added successfully!");
+    });
 
-const sales=orders.reduce((sum,o)=>sum+(Number(o.price)||0),0);
-document.getElementById("totalSales").textContent="KES "+sales.toLocaleString();
+    function deleteProduct(i) {
+      if (confirm("Delete this product?")) {
+        products.splice(i, 1);
+        save();
+        renderProducts();
+        renderAdmin();
+      }
+    }
 
-document.getElementById("productTable").innerHTML=products.map((p,i)=>`
-<tr>
-<td>${safe(p.name)}</td>
-<td>KES ${Number(p.price).toLocaleString()}</td>
-<td><button class="adminbtn danger" onclick="deleteProduct(${i})">Delete</button></td>
-</tr>
-`).join("");
+    function renderAdmin() {
+      document.getElementById("totalProducts").textContent = products.length;
+      // Assuming 'orders' array exists
+      document.getElementById("totalOrders").textContent = orders.length;
 
-document.getElementById("orderTable").innerHTML=orders.map(o=>`
-<tr>
-<td>${safe(o.name)}</td>
-<td>KES ${Number(o.price).toLocaleString()}</td>
-<td>${safe(o.date)}</td>
-</tr>
-`).join("");
-}
+      const sales = orders.reduce((sum, o) => sum + (Number(o.price) || 0), 0);
+      document.getElementById("totalSales").textContent = "KES " + sales.toLocaleString();
+    }
+  </script>
 
-renderProducts();
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<canvas id="salesChart" width="400" height="200"></canvas>
-
-<script>
-const ctx = document.getElementById('salesChart').getContext('2d');
-const salesChart = new Chart(ctx, {
-    type: 'line',
-    data: {
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <canvas id="salesChart" width="400" height="200"></canvas>
+  <script>
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    const salesChart = new Chart(ctx, {
+      type: 'line',
+      data: {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
         datasets: [{
-            label: 'Sales ($)',
-            data: [1200, 1900, 3000, 5000, 2300, 3400],
-            borderColor: 'rgba(75, 192, 192, 1)',
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderWidth: 2,
-            tension: 0.1
+          label: 'Sales ($)',
+          data: [1200, 1900, 3000, 5000, 2300, 3400],
+          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderWidth: 2,
+          tension: 0.1
         }]
-    },
-    options: {
+      },
+      options: {
         responsive: true,
         scales: {
-            y: {
-                beginAtZero: true
-            }
+          y: {
+            beginAtZero: true
+          }
         }
-    }
-});
-</script>
+      }
+    });
+  </script>
 
-</script>
 </body>
 </html>
