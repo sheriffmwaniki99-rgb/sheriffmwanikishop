@@ -1,78 +1,410 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Dashboard</title>
+    <title>Premium Business Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa', 100: '#ccfbf1', 500: '#14b8a6', 600: '#0d9488', 700: '#0f766e', 900: '#134e4a'
+                        },
+                        darkbg: '#0b0f19',
+                        darkcard: 'rgba(17, 24, 39, 0.7)',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; background-color: #121212; color: #fff; }
-        input, button { padding: 8px; margin: 5px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #444; padding: 10px; text-align: left; }
-        th { background-color: #333; }
-        .danger { background-color: #ff4d4d; color: white; border: none; padding: 5px 10px; cursor: pointer; }
-        #searchInput { width: 100%; padding: 10px; margin-bottom: 20px; background-color: #333; border: 1px solid #444; color: white; }
+        .glass-morphism {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        body { font-family: 'Inter', sans-serif; background-color: #050b14; color: #f3f4f6; }
     </style>
 </head>
-<body>
-    <h1>Business Dashboard</h1>
-    
-    <div>
-        <h2 id="totalOrders">Total Orders: 0</h2>
-        <h2 id="totalSales">Total Sales: KES 0</h2>
-    </div>
+<body class="bg-gray-950 text-white min-h-screen flex">
 
-    <div>
-        <h2>Add Product</h2>
-        <input type="text" id="pname" placeholder="Product Name">
-        <input type="text" id="pdesc" placeholder="Description">
-        <input type="number" id="pprice" placeholder="Price">
-        <button id="submitProduct">Add Product</button>
-    </div>
+    <aside class="w-64 glass-morphism border-r border-white/10 hidden md:flex flex-col fixed inset-y-0 z-50">
+        <div class="p-6 flex items-center space-x-3">
+            <div class="w-10 h-10 bg-brand-500 rounded-xl flex items-center justify-center text-white font-bold text-xl">
+                <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <span class="font-bold text-xl tracking-tight">SheriffHub</span>
+        </div>
 
-    <input type="text" id="searchInput" placeholder="Search products...">
+        <nav class="flex-1 px-4 space-y-2 mt-4">
+            <a href="#" class="flex items-center space-x-3 bg-white/5 text-white p-3.5 rounded-xl transition-all border border-brand-500/30 shadow-[0_0_15px_rgba(20,184,166,0.15)]">
+                <i class="fa-solid fa-house text-brand-500"></i>
+                <span class="font-medium">Dashboard Overview</span>
+            </a>
+            <a href="#" class="flex items-center space-x-3 text-gray-400 hover:text-white hover:bg-white/5 p-3.5 rounded-xl transition-all">
+                <i class="fa-solid fa-box"></i>
+                <span class="font-medium">Products & Stock</span>
+            </a>
+            <a href="#" class="flex items-center space-x-3 text-gray-400 hover:text-white hover:bg-white/5 p-3.5 rounded-xl transition-all">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="font-medium">Orders Tracking</span>
+            </a>
+            <a href="#" class="flex items-center space-x-3 text-gray-400 hover:text-white hover:bg-white/5 p-3.5 rounded-xl transition-all">
+                <i class="fa-solid fa-user-group"></i>
+                <span class="font-medium">User & Roles</span>
+            </a>
+            <a href="#" class="flex items-center space-x-3 text-gray-400 hover:text-white hover:bg-white/5 p-3.5 rounded-xl transition-all">
+                <i class="fa-solid fa-address-card"></i>
+                <span class="font-medium">Customer CRM</span>
+            </a>
+            <a href="#" class="flex items-center space-x-3 text-gray-400 hover:text-white hover:bg-white/5 p-3.5 rounded-xl transition-all">
+                <i class="fa-solid fa-ticket"></i>
+                <span class="font-medium">Coupons & Promos</span>
+            </a>
+            <a href="#" class="flex items-center space-x-3 text-gray-400 hover:text-white hover:bg-white/5 p-3.5 rounded-xl transition-all">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <span class="font-medium">Audit Trail</span>
+            </a>
+            <a href="#" class="flex items-center space-x-3 text-gray-400 hover:text-white hover:bg-white/5 p-3.5 rounded-xl transition-all">
+                <i class="fa-solid fa-gear"></i>
+                <span class="font-medium">System Settings</span>
+            </a>
+        </nav>
 
-    <table id="productTable">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="productBody">
-            <!-- Products will be rendered here -->
-        </tbody>
-    </table>
+        <div class="p-6 border-t border-white/10">
+            <div class="flex items-center space-x-4">
+                <div class="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center font-bold">SA</div>
+                <div>
+                    <h4 class="font-bold text-sm">Sheriff Admin</h4>
+                    <p class="text-xs text-brand-500 font-medium">Super Administrator</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="md:pl-64 flex-1 flex flex-col min-h-screen">
+        
+        <header class="h-20 glass-morphism border-b border-white/10 flex items-center justify-between px-8 sticky top-0 z-40">
+            <h1 class="text-2xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">Business Dashboard</h1>
+            
+            <div class="flex items-center space-x-4">
+                <div class="relative hidden sm:block">
+                    <input type="text" placeholder="Global search (products, orders, users)..." class="bg-gray-900 border border-white/10 rounded-xl py-2.5 pl-12 pr-6 w-96 focus:outline-none focus:border-brand-500 transition-all text-sm">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-gray-400"></i>
+                </div>
+                <div class="relative">
+                    <button class="w-11 h-11 rounded-xl bg-gray-900 border border-white/10 flex items-center justify-center hover:bg-white/5 transition-all relative">
+                        <i class="fa-solid fa-bell text-gray-400"></i>
+                        <span class="absolute top-3 right-3 w-2.5 h-2.5 bg-brand-500 rounded-full border-2 border-gray-900"></span>
+                    </button>
+                </div>
+                <button onclick="exportDashboardData()" class="bg-brand-500 hover:bg-brand-600 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition-all shadow-[0_4px_12px_rgba(20,184,166,0.3)] flex items-center space-x-2">
+                    <i class="fa-solid fa-file-export"></i>
+                    <span>Export CSV</span>
+                </button>
+            </div>
+        </header>
+
+        <section class="p-8 space-y-8">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <div class="glass-morphism rounded-3xl p-6 border border-white/10 hover:-translate-y-1 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-500/10 flex items-center justify-center text-brand-500">
+                            <i class="fa-solid fa-wallet text-xl"></i>
+                        </div>
+                        <span class="flex items-center text-green-500 text-sm font-semibold bg-green-500/10 px-2.5 py-1 rounded-lg">
+                            <i class="fa-solid fa-arrow-up mr-1"></i> +14.2%
+                        </span>
+                    </div>
+                    <div>
+                        <p class="text-gray-400 text-sm font-medium mb-1">TOTAL REVENUE</p>
+                        <h3 class="text-3xl font-bold mb-1">KES 148,250</h3>
+                        <p class="text-xs text-gray-500">+14.2% from last week</p>
+                    </div>
+                </div>
+
+                
+                <div class="glass-morphism rounded-3xl p-6 border border-white/10 hover:-translate-y-1 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-500">
+                            <i class="fa-solid fa-bag-shopping text-xl"></i>
+                        </div>
+                        <span class="flex items-center text-green-500 text-sm font-semibold bg-green-500/10 px-2.5 py-1 rounded-lg">
+                            <i class="fa-solid fa-arrow-up mr-1"></i> +8.5%
+                        </span>
+                    </div>
+                    <div>
+                        <p class="text-gray-400 text-sm font-medium mb-1">TOTAL ORDERS</p>
+                        <h3 class="text-3xl font-bold mb-1">128</h3>
+                        <p class="text-xs text-gray-500">+8.5% new orders</p>
+                    </div>
+                </div>
+
+                
+                <div class="glass-morphism rounded-3xl p-6 border border-white/10 hover:-translate-y-1 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-500">
+                            <i class="fa-solid fa-cubes-stacked text-xl"></i>
+                        </div>
+                        <button onclick="document.getElementById('searchInput').value = 'Low Stock'; document.getElementById('searchInput').dispatchEvent(new Event('input'))" class="flex items-center text-amber-500 text-sm font-semibold bg-amber-500/10 px-2.5 py-1 rounded-lg hover:bg-amber-500/20 transition-all">
+                            View Stock
+                        </button>
+                    </div>
+                    <div>
+                        <p class="text-gray-400 text-sm font-medium mb-1">ACTIVE PRODUCTS</p>
+                        <h3 class="text-3xl font-bold mb-1" id="kpiProducts">42</h3>
+                        <p class="text-xs text-gray-500"><span id="lowStockCountText">2</span> Low Stock</p>
+                    </div>
+                </div>
+
+                
+                <div class="glass-morphism rounded-3xl p-6 border border-white/10 hover:-translate-y-1 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-pink-500/10 flex items-center justify-center text-pink-500">
+                            <i class="fa-solid fa-user-check text-xl"></i>
+                        </div>
+                        <span class="flex items-center text-green-500 text-sm font-semibold bg-green-500/10 px-2.5 py-1 rounded-lg">
+                            <i class="fa-solid fa-arrow-up mr-1"></i> +12%
+                        </span>
+                    </div>
+                    <div>
+                        <p class="text-gray-400 text-sm font-medium mb-1">ACTIVE CUSTOMERS</p>
+                        <h3 class="text-3xl font-bold mb-1">89</h3>
+                        <p class="text-xs text-gray-500">+12 new this month</p>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div class="glass-morphism rounded-3xl p-8 border border-white/10 lg:col-span-2 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-lg font-bold">Sales Revenue (KES)</h3>
+                            <p class="text-sm text-gray-400">Monthly breakdown</p>
+                        </div>
+                        <select onchange="updateChart(this.value)" class="bg-gray-900 border border-white/10 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-brand-500">
+                            <option value="monthly">Monthly</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="yearly">Yearly</option>
+                        </select>
+                    </div>
+                    <div class="h-80">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                </div>
+
+                
+                <div class="glass-morphism rounded-3xl p-8 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-bold">Product Stock Levels</h3>
+                        <button onclick="clearNotifs()" class="text-sm text-brand-500 font-semibold hover:text-brand-400 transition-all">Clear All</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="text-gray-400 border-b border-white/10">
+                                <tr>
+                                    <th class="pb-3 text-left font-medium">Product</th>
+                                    <th class="pb-3 text-right font-medium">Stock</th>
+                                    <th class="pb-3 text-center font-medium">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5 text-gray-300" id="stockTableBody">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="glass-morphism rounded-3xl p-8 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+                    <div>
+                        <h3 class="text-xl font-bold mb-1">Product Inventory</h3>
+                        <p class="text-sm text-gray-400">Manage your product listings and inventory</p>
+                    </div>
+                    
+                    <button class="bg-brand-500 hover:bg-brand-600 text-white px-6 py-3 rounded-2xl font-semibold text-sm transition-all shadow-[0_4px_12px_rgba(20,184,166,0.3)] flex items-center space-x-2">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Add New Product</span>
+                    </button>
+                </div>
+
+                <div class="mb-6 relative max-w-md">
+                    <input type="text" id="searchInput" placeholder="Search products..." class="bg-gray-900 border border-white/10 rounded-2xl py-3.5 pl-12 pr-6 w-full focus:outline-none focus:border-brand-500 transition-all text-sm">
+                    <i class="fa-solid fa-magnifying-glass absolute left-5 top-4 text-gray-400"></i>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="text-gray-400 text-sm uppercase tracking-wider border-b border-white/10">
+                            <tr>
+                                <th class="pb-5 text-left font-semibold">Product Name</th>
+                                <th class="pb-5 text-left font-semibold">Description</th>
+                                <th class="pb-5 text-left font-semibold">Price</th>
+                                <th class="pb-5 text-left font-semibold">Stock</th>
+                                <th class="pb-5 text-right font-semibold">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-white/5" id="productTableBody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <script>
-        let products = JSON.parse(localStorage.getItem('products')) || [];
-        let orders = JSON.parse(localStorage.getItem('orders')) || [];
+        // State Management
+        let products = JSON.parse(localStorage.getItem('products')) || [
+            { id: 1, name: 'Premium Leather Boots', desc: 'Handcrafted genuine leather', price: 12500, stock: 5 },
+            { id: 2, name: 'Minimalist Wristwatch', desc: 'Water-resistant stainless steel', price: 8500, stock: 12 },
+            { id: 3, name: 'Casual Denim Jacket', desc: 'Heavy-weight cotton blend', price: 4500, stock: 0 },
+            { id: 4, name: 'Silk Necktie', desc: '100% pure Mulberry silk', price: 1800, stock: 25 },
+            { id: 5, name: 'Canvas Laptop Backpack', desc: 'Water-repellent 15-inch', price: 3200, stock: 2 }
+        ];
 
-        function save() {
+        let orders = [
+            { id: 101, price: 12500 },
+            { id: 102, price: 8500 },
+            { id: 103, price: 4500 },
+            { id: 104, price: 1800 },
+            { id: 105, price: 3200 }
+        ];
+
+        function saveProducts() {
             localStorage.setItem('products', JSON.stringify(products));
+            updateKPIs();
         }
 
+        // Charts Implementation
+        let salesChartInstance;
+        const ctx = document.getElementById('salesChart').getContext('2d');
+
+        function initChart() {
+            salesChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Sales Revenue (KES)',
+                        data: [120000, 240000, 180000, 450000, 320000, 580000],
+                        borderColor: '#14b8a6',
+                        backgroundColor: 'rgba(20, 184, 166, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#14b8a6',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#111827',
+                            borderColor: '#374151',
+                            borderWidth: 1,
+                            padding: 12
+                        }
+                    },
+                    scales: {
+                        x: { 
+                            grid: { display: false }, 
+                            ticks: { color: '#9ca3af', font: { size: 12 } } 
+                        },
+                        y: { 
+                            grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false }, 
+                            ticks: { 
+                                color: '#9ca3af',
+                                callback: function(value) { return 'Ksh ' + value / 1000 + 'k'; },
+                                font: { size: 12 }
+                            } 
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateChart(period) {
+            let data = [];
+            if (period === 'weekly') data = [5000, 12000, 9000, 15000, 22000, 31000];
+            else if (period === 'monthly') data = [120000, 240000, 180000, 450000, 320000, 580000];
+            else if (period === 'yearly') data = [1200000, 2400000, 1800000, 4500000, 3200000, 5800000];
+
+            salesChartInstance.data.datasets[0].data = data;
+            salesChartInstance.update();
+        }
+
+        // DOM Rendering functions
+
         function renderProducts() {
-            const tbody = document.getElementById('productBody');
+            const tbody = document.getElementById('productTableBody');
             tbody.innerHTML = '';
+            
             products.forEach((p, index) => {
                 const tr = document.createElement('tr');
+                tr.className = 'hover:bg-white/5 transition-all';
                 tr.innerHTML = `
-                    <td>${escapeHtml(p.name)}</td>
-                    <td>${escapeHtml(p.desc)}</td>
-                    <td>${escapeHtml(p.price)}</td>
-                    <td><button class="danger" onclick="deleteProduct(${index})">Delete</button></td>
+                    <td class="py-5 font-semibold text-white">${escapeHtml(p.name)}</td>
+                    <td class="py-5 text-gray-400 text-sm">${escapeHtml(p.desc)}</td>
+                    <td class="py-5 text-white font-medium">KES ${p.price.toLocaleString()}</td>
+                    <td class="py-5">
+                        <span class="${p.stock < 10 ? 'text-amber-500' : 'text-green-500'} font-semibold">
+                            ${p.stock}
+                        </span> in stock
+                    </td>
+                    <td class="py-5 text-right">
+                        <button onclick="deleteProduct(${index})" class="bg-red-500/10 hover:bg-red-500/20 text-red-500 px-4 py-2 rounded-xl font-semibold text-sm transition-all border border-red-500/20">
+                            Delete
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            updateStockWidget();
+        }
+
+        function renderStockWidget() {
+            const tbody = document.getElementById('stockTableBody');
+            tbody.innerHTML = '';
+            
+            const lowStock = products.filter(p => p.stock < 10);
+            
+            lowStock.forEach(p => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="py-4 font-medium">${escapeHtml(p.name)}</td>
+                    <td class="py-4 text-right font-semibold ${p.stock === 0 ? 'text-red-500' : 'text-amber-500'}">
+                        ${p.stock} Units
+                    </td>
+                    <td class="py-4 text-center">
+                        <span class="bg-red-500/10 text-red-500 text-xs px-2.5 py-1 rounded-lg font-semibold">Critical</span>
+                    </td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
-        function renderAdmin() {
-            document.getElementById('totalOrders').textContent = `Total Orders: ${orders.length}`;
-            const totalSales = orders.reduce((sum, o) => sum + (Number(o.price) || 0), 0);
-            document.getElementById('totalSales').textContent = `Total Sales: KES ${totalSales.toLocaleString()}`;
+        function updateStockWidget() {
+            renderStockWidget();
         }
 
         function escapeHtml(text) {
@@ -81,45 +413,50 @@
             return div.innerHTML;
         }
 
-        document.getElementById('submitProduct').addEventListener('click', function() {
-            const name = document.getElementById('pname').value.trim();
-            const desc = document.getElementById('pdesc').value.trim();
-            const price = Number(document.getElementById('pprice').value);
+        // Actions
 
-            if (!name || !desc || !Number.isFinite(price) || price < 0) {
-                alert("Enter a valid product name, description and price.");
-                return;
-            }
+        function updateKPIs() {
+            const lowStockCount = products.filter(p => p.stock < 10).length;
+            document.getElementById('lowStockCountText').textContent = lowStockCount;
+            document.getElementById('lowStockCount').textContent = lowStockCount;
+            document.getElementById('kpiProducts').textContent = products.length;
+        }
 
-            products.push({ name, desc, price });
-            save();
-            renderProducts();
+        function clearNotifs() {
+            document.getElementById('stockTableBody').innerHTML = '<tr><td colspan="3" class="text-center py-4 text-gray-500">No active alerts</td></tr>';
+            document.querySelector('.fa-bell').nextElementSibling.classList.add('hidden');
+        }
 
-            document.getElementById('pname').value = '';
-            document.getElementById('pdesc').value = '';
-            document.getElementById('pprice').value = '';
-            alert("Product added successfully!");
-        });
+        function exportDashboardData() {
+            let csvContent = "data:text/csv;charset=utf-8,Product Name,Description,Price,Stock\n";
+            
+            products.forEach(p => {
+                csvContent += `"${p.name}","${p.desc}",${p.price},${p.stock}\n`;
+            });
 
-        function deleteProduct(index) {
-            if (confirm("Delete this product?")) {
-                products.splice(index, 1);
-                save();
-                renderProducts();
-            }
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "dashboard_export.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
         document.getElementById('searchInput').addEventListener('input', function() {
             const filter = this.value.toLowerCase();
-            const rows = document.querySelectorAll('#productBody tr');
+            const rows = document.querySelectorAll('#productTableBody tr');
+            
             rows.forEach(row => {
                 const text = row.textContent.toLowerCase();
                 row.style.display = text.includes(filter) ? '' : 'none';
             });
         });
 
+        // Initialize
+        initChart();
         renderProducts();
-        renderAdmin();
+        updateKPIs();
     </script>
 </body>
 </html>
