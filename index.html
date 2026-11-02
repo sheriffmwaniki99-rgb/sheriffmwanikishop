@@ -22,7 +22,7 @@
     </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        .glass-морфизм {
+        .glass-morphism {
             background: rgba(17, 24, 39, 0.7);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -36,163 +36,299 @@
         .brand-gradient {
             background: linear-gradient(135deg, #14b8a6 0%, #0f766e 100%);
         }
+        body { font-family: 'Inter', sans-serif; background-color: #050b14; color: #f3f4f6; }
     </style>
 </head>
 <body class="bg-pagebg text-white selection:bg-brand-500/30">
 
-    <nav class="fixed top-0 w-full z-50 glass-морфизм border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <a href="#" class="flex items-center space-x-3">
-                    <div class="w-10 h-10 brand-gradient rounded-xl flex items-center justify-center text-white font-bold text-xl">SH</div>
-                    <span class="font-bold text-2xl tracking-tight">SheriffHub</span>
-                </a>
-
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-xl text-brand-500 font-medium transition-all">Home</a>
-                    <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-xl hover:bg-white/5 font-medium transition-all">Products</a>
-                    <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-xl hover:bg-white/5 font-medium transition-all">Testimonials</a>
-                    <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-xl hover:bg-white/5 font-medium transition-all">FAQ</a>
+    
+    <nav class="fixed top-0 w-full z-50 glass-morphism border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center space-x-3">
+                <div class="w-10 h-10 brand-gradient rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-[0_0_15px_rgba(20,184,166,0.5)]">
+                    <i class="fa-solid fa-chart-line"></i>
                 </div>
+                <span class="font-bold text-2xl tracking-tight">SheriffHub</span>
+            </a>
 
-                <div class="flex items-center space-x-5">
-                    <button class="w-11 h-11 hidden md:flex items-center justify-center hover:bg-white/5 rounded-xl transition-all border border-white/5 text-gray-400 hover:text-white">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                    <button class="w-11 h-11 relative flex items-center justify-center hover:bg-white/5 rounded-xl transition-all border border-white/5 text-gray-400 hover:text-white">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        <span class="absolute top-3 right-3 w-2.5 h-2.5 bg-brand-500 rounded-full border-2 border-pagebg"></span>
-                    </button>
-                </div>
+            <div class="hidden md:flex items-center space-x-1">
+                <a href="#home" class="px-5 py-2.5 rounded-xl text-brand-500 font-medium transition-all">Home</a>
+                <a href="#products" class="px-5 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 font-medium transition-all">Products</a>
+                <a href="#testimonials" class="px-5 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 font-medium transition-all">Testimonials</a>
+                <a href="#faq" class="px-5 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 font-medium transition-all">FAQ</a>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <button class="w-11 h-11 rounded-xl bg-white/5 flex items-center justify-center hover:bg-white/10 transition-all border border-white/5">
+                    <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
+                </button>
+                <button class="w-11 h-11 rounded-xl bg-white/5 flex items-center justify-center hover:bg-white/10 transition-all border border-white/5 relative">
+                    <i class="fa-solid fa-cart-shopping text-gray-400"></i>
+                    <span class="absolute top-3 right-3 w-2.5 h-2.5 bg-brand-500 rounded-full border-2 border-pagebg"></span>
+                </button>
             </div>
         </div>
     </nav>
 
+
     <main class="pt-20">
+        
         <section id="home" class="relative py-24 overflow-hidden">
             <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-brand-500/20 blur-[120px] pointer-events-none"></div>
             <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-indigo-500/10 blur-[120px] pointer-events-none"></div>
-
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <span class="inline-flex items-center rounded-full bg-brand-500/10 px-4 py-1.5 text-sm font-semibold text-brand-500 mb-6">
+            
+            <div class="max-w-7xl mx-auto px-6 text-center">
+                <span class="inline-flex items-center rounded-full bg-brand-500/10 px-4 py-1.5 text-sm font-semibold text-brand-500 mb-6 border border-brand-500/20 shadow-[0_0_15px_rgba(20,184,166,0.2)]">
                     New Collection 2026
                 </span>
                 <h1 class="text-6xl md:text-8xl font-extrabold mb-8 tracking-tight gradient-text leading-tight">
                     Premium Quality<br>Delivered Daily
                 </h1>
-                <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                <p class="text-lg text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
                     Discover our carefully curated selection of premium products designed to elevate your everyday life.
                 </p>
-                <div class="flex items-center justify-center space-x-4">
-                    <button class="brand-gradient hover:bg-brand-600 text-white px-10 py-4 rounded-full font-semibold transition-all shadow-lg shadow-brand-500/20 flex items-center group">
-                        Shop Now
-                        <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                <div class="flex items-center justify-center space-x-6">
+                    <button class="brand-gradient hover:bg-brand-600 text-white px-10 py-4 rounded-2xl font-semibold transition-all shadow-[0_4px_25px_rgba(20,184,166,0.4)] flex items-center space-x-2">
+                        <span>Shop Now</span>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </button>
-                    <button class="bg-white/5 hover:bg-white/10 text-white px-10 py-4 rounded-full font-semibold transition-all border border-white/10">
+                    <button class="bg-white/5 hover:bg-white/10 text-white px-10 py-4 rounded-2xl font-semibold transition-all border border-white/10">
                         Learn More
                     </button>
                 </div>
             </div>
         </section>
 
+
         <section id="products" class="py-24">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto px-6">
                 <div class="flex items-center justify-between mb-16">
                     <div>
                         <h2 class="text-4xl font-bold mb-4 gradient-text">Featured Products</h2>
                         <p class="text-gray-400">Handcrafted excellence for your lifestyle</p>
                     </div>
-                    <button class="text-brand-500 hover:text-white font-semibold flex items-center group">
-                        View All Categories
-                        <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    <button class="text-brand-500 font-semibold hover:text-brand-400 transition-all flex items-center space-x-2">
+                        <span>View All Categories</span>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
 
-                <div class="flex overflow-x-auto space-x-4 pb-8 scrollbar-hide">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     
-                    <div class="glass-морфизм rounded-3xl border border-white/10 group hover:border-brand-500/50 transition-all w-80 flex-shrink-0">
-                        <div class="relative w-full h-80 rounded-3xl overflow-hidden mb-8 bg-white/5">
-                            <i class="fa-solid fa-box-open absolute top-10 right-10 text-xl text-gray-400 group-hover:text-brand-500 transition-colors"></i>
+                    <div class="glass-morphism rounded-3xl p-6 border border-white/10 group hover:-translate-y-2 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                        <div class="relative w-full h-80 rounded-2xl overflow-hidden mb-8 bg-white/5">
+                            <i class="fa-solid fa-box-open absolute inset-0 flex items-center justify-center text-6xl text-white/5 group-hover:text-brand-500/20 transition-all"></i>
                         </div>
-                        <div class="flex items-center justify-between mb-4">
-                            <div>
-                                <span class="text-sm text-brand-500 font-semibold mb-1 block">Footwear</span>
-                                <h3 class="text-xl font-bold text-white">Premium Leather Boots</h3>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-xl font-bold">Premium Leather Boots</h3>
+                                <span class="bg-brand-500/10 text-brand-500 text-xs px-3 py-1 rounded-lg font-semibold border border-brand-500/20">In Stock</span>
                             </div>
-                            <span class="w-10 h-10 flex items-center justify-center bg-brand-500/10 text-brand-500 rounded-full font-semibold">
-                                <i class="fa-solid fa-cart-shopping"></i>
-                            </span>
-                        </div>
-                        <p class="text-gray-400 text-sm mb-6">Handcrafted genuine leather with superior comfort and durability.</p>
-                        <div class="flex items-center justify-between border-t border-white/5 pt-6">
-                            <span class="text-xl font-bold text-white">KES 12,500</span>
-                            <button class="bg-white/5 hover:bg-white/10 text-white px-5 py-2.5 rounded-xl font-semibold transition-all">Add to Cart</button>
+                            <p class="text-gray-400 text-sm mb-6 leading-relaxed">Handcrafted genuine leather with superior comfort and durability.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-2xl font-bold">KES 12,500</span>
+                                <button class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center hover:bg-brand-500 hover:text-white transition-all border border-white/5 hover:border-brand-500">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="glass-морфизм rounded-3xl border border-white/10 group hover:border-brand-500/50 transition-all w-80 flex-shrink-0">
-                        <div class="relative w-full h-80 rounded-3xl overflow-hidden mb-8 bg-white/5">
-                            <i class="fa-solid fa-box-open absolute top-10 right-10 text-xl text-gray-400 group-hover:text-brand-500 transition-colors"></i>
+                    
+                    <div class="glass-morphism rounded-3xl p-6 border border-white/10 group hover:-translate-y-2 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                        <div class="relative w-full h-80 rounded-2xl overflow-hidden mb-8 bg-white/5">
+                            <i class="fa-solid fa-box-open absolute inset-0 flex items-center justify-center text-6xl text-white/5 group-hover:text-brand-500/20 transition-all"></i>
                         </div>
-                        <div class="flex items-center justify-between mb-4">
-                            <div>
-                                <span class="text-sm text-brand-500 font-semibold mb-1 block">Travel</span>
-                                <h3 class="text-xl font-bold text-white">Classic Leather Backpack</h3>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-xl font-bold">Minimalist Wristwatch</h3>
+                                <span class="bg-brand-500/10 text-brand-500 text-xs px-3 py-1 rounded-lg font-semibold border border-brand-500/20">In Stock</span>
                             </div>
-                            <span class="w-10 h-10 flex items-center justify-center bg-brand-500/10 text-brand-500 rounded-full font-semibold">
-                                <i class="fa-solid fa-cart-shopping"></i>
-                            </span>
-                        </div>
-                        <p class="text-gray-400 text-sm mb-6">Spacious and stylish, perfect for daily commutes or weekend trips.</p>
-                        <div class="flex items-center justify-between border-t border-white/5 pt-6">
-                            <span class="text-xl font-bold text-white">KES 8,500</span>
-                            <button class="bg-white/5 hover:bg-white/10 text-white px-5 py-2.5 rounded-xl font-semibold transition-all">Add to Cart</button>
+                            <p class="text-gray-400 text-sm mb-6 leading-relaxed">Water-resistant stainless steel with a sleek, timeless design.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-2xl font-bold">KES 8,500</span>
+                                <button class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center hover:bg-brand-500 hover:text-white transition-all border border-white/5 hover:border-brand-500">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="glass-морфизм rounded-3xl border border-white/10 group hover:border-brand-500/50 transition-all w-80 flex-shrink-0">
-                        <div class="relative w-full h-80 rounded-3xl overflow-hidden mb-8 bg-white/5">
-                            <i class="fa-solid fa-box-open absolute top-10 right-10 text-xl text-gray-400 group-hover:text-brand-500 transition-colors"></i>
+                    
+                    <div class="glass-morphism rounded-3xl p-6 border border-white/10 group hover:-translate-y-2 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                        <div class="relative w-full h-80 rounded-2xl overflow-hidden mb-8 bg-white/5">
+                            <i class="fa-solid fa-box-open absolute inset-0 flex items-center justify-center text-6xl text-white/5 group-hover:text-brand-500/20 transition-all"></i>
                         </div>
-                        <div class="flex items-center justify-between mb-4">
-                            <div>
-                                <span class="text-sm text-brand-500 font-semibold mb-1 block">Accessories</span>
-                                <h3 class="text-xl font-bold text-white">Vintage Leather Wallet</h3>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-xl font-bold">Casual Denim Jacket</h3>
+                                <span class="bg-red-500/10 text-red-500 text-xs px-3 py-1 rounded-lg font-semibold border border-red-500/20">Low Stock</span>
                             </div>
-                            <span class="w-10 h-10 flex items-center justify-center bg-brand-500/10 text-brand-500 rounded-full font-semibold">
-                                <i class="fa-solid fa-cart-shopping"></i>
-                            </span>
+                            <p class="text-gray-400 text-sm mb-6 leading-relaxed">Heavy-weight cotton blend designed for style and comfort.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-2xl font-bold">KES 4,500</span>
+                                <button class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center hover:bg-brand-500 hover:text-white transition-all border border-white/5 hover:border-brand-500">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                </button>
+                            </div>
                         </div>
-                        <p class="text-gray-400 text-sm mb-6">Slim design with multiple compartments for secure storage.</p>
-                        <div class="flex items-center justify-between border-t border-white/5 pt-6">
-                            <span class="text-xl font-bold text-white">KES 3,200</span>
-                            <button class="bg-white/5 hover:bg-white/10 text-white px-5 py-2.5 rounded-xl font-semibold transition-all">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="testimonials" class="py-24 bg-white/5">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <span class="text-brand-500 font-semibold tracking-wider uppercase text-sm">Testimonials</span>
+                    <h2 class="text-4xl font-bold mt-4 mb-6 gradient-text">What Our Customers Say</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <div class="glass-morphism rounded-3xl p-8 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="w-14 h-14 rounded-full bg-indigo-500 flex items-center justify-center font-bold text-lg">AS</div>
+                            <div>
+                                <h4 class="font-bold">Alex Smith</h4>
+                                <p class="text-xs text-brand-500">Verified Customer</p>
+                            </div>
                         </div>
+                        <p class="text-gray-400 leading-relaxed italic">"The quality of the leather boots I purchased is absolutely outstanding. They exceeded all my expectations. Will definitely buy again."</p>
+                    </div>
+
+                    
+                    <div class="glass-morphism rounded-3xl p-8 border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="w-14 h-14 rounded-full bg-amber-500 flex items-center justify-center font-bold text-lg">MW</div>
+                            <div>
+                                <h4 class="font-bold">Mary Wanjiku</h4>
+                                <p class="text-xs text-brand-500">Verified Customer</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 leading-relaxed italic">"SheriffHub delivers exceptional service and premium products. The minimal wristwatch I ordered is elegant and keeps perfect time."</p>
                     </div>
 
                 </div>
             </div>
         </section>
 
-        <section class="mb-4">
-            <h2 class="text-sm text-center text-gray-500">Inventory Status</h2>
-            <div id="productBody" class="grid grid-cols-1 gap-2"></div>
-            <div class="mt-4 text-center">
-                <button id="submitProduct" class="hidden"></button>
+
+        <section id="faq" class="py-24">
+            <div class="max-w-3xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-6 gradient-text">Frequently Asked Questions</h2>
+                </div>
+
+                <div class="space-y-6">
+                    
+                    <div class="glass-morphism rounded-3xl border border-white/10 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
+                        <button class="w-full text-left px-8 py-6 flex items-center justify-between font-semibold focus:outline-none">
+                            <span>How long does delivery take?</span>
+                            <i class="fa-solid fa-chevron-down text-brand-500"></i>
+                        </button>
+                        <div class="px-8 pb-6 text-gray-400 leading-relaxed">
+                            We offer same-day delivery within Nyamira and 24-hour delivery across other regions in Kenya.
+                        </div>
+                    </div>
+
+                    
+                    <div class="glass-morphism rounded-3xl border border-white/10 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
+                        <button class="w-full text-left px-8 py-6 flex items-center justify-between font-semibold focus:outline-none">
+                            <span>Are the products genuine leather?</span>
+                            <i class="fa-solid fa-chevron-down text-brand-500"></i>
+                        </button>
+                        <div class="px-8 pb-6 text-gray-400 leading-relaxed">
+                            Yes, all our leather products are handcrafted from 100% premium genuine leather to ensure durability and style.
+                        </div>
+                    </div>
+
+                    
+                    <div class="glass-morphism rounded-3xl border border-white/10 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
+                        <button class="w-full text-left px-8 py-6 flex items-center justify-between font-semibold focus:outline-none">
+                            <span>What is your return policy?</span>
+                            <i class="fa-solid fa-chevron-down text-brand-500"></i>
+                        </button>
+                        <div class="px-8 pb-6 text-gray-400 leading-relaxed">
+                            We offer a 7-day hassle-free return policy if the product does not meet your expectations or has any defects.
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <footer class="bg-cardbg border-t border-white/5 py-12 mt-24">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400">
-                <p>&copy; 2026 SheriffHub. All rights reserved.</p>
-            </div>
-        </footer>
     </main>
 
-    <script>
-        document.getElementById("submitProduct").addEventListener("click", function() {
-            alert("Product added successfully!");
-        });
-    </script>
+
+    <footer class="bg-[#050b14] border-t border-white/10 pt-24 pb-12">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
+            
+            <div class="col-span-1 md:col-span-1">
+                <a href="#" class="flex items-center space-x-3 mb-8">
+                    <div class="w-10 h-10 brand-gradient rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-[0_0_15px_rgba(20,184,166,0.5)]">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <span class="font-bold text-2xl tracking-tight">SheriffHub</span>
+                </a>
+                <p class="text-gray-400 leading-relaxed mb-8">Providing premium quality products tailored for your everyday lifestyle and comfort.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-brand-500 transition-all border border-white/5 hover:border-brand-500">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-brand-500 transition-all border border-white/5 hover:border-brand-500">
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-brand-500 transition-all border border-white/5 hover:border-brand-500">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+
+            
+            <div class="col-span-1">
+                <h4 class="font-bold text-white mb-8">Shop</h4>
+                <ul class="space-y-4 text-gray-400">
+                    <li><a href="#" class="hover:text-brand-500 transition-all">All Products</a></li>
+                    <li><a href="#" class="hover:text-brand-500 transition-all">New Arrivals</a></li>
+                    <li><a href="#" class="hover:text-brand-500 transition-all">Best Sellers</a></li>
+                    <li><a href="#" class="hover:text-brand-500 transition-all">Discounts</a></li>
+                </ul>
+            </div>
+
+            
+            <div class="col-span-1">
+                <h4 class="font-bold text-white mb-8">Company</h4>
+                <ul class="space-y-4 text-gray-400">
+                    <li><a href="#" class="hover:text-brand-500 transition-all">About Us</a></li>
+                    <li><a href="#" class="hover:text-brand-500 transition-all">Careers</a></li>
+                    <li><a href="#" class="hover:text-brand-500 transition-all">Blog</a></li>
+                    <li><a href="#" class="hover:text-brand-500 transition-all">Contact</a></li>
+                </ul>
+            </div>
+
+            
+            <div class="col-span-1">
+                <h4 class="font-bold text-white mb-8">Legal</h4>
+                <ul class="space-y-4 text-gray-400">
+                    <li><a href="#" class="hover:text-brand-500 transition-all">Terms of Service</a></li>
+                    <li><a href="#" class="hover:text-brand-500 transition-all">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-brand-500 transition-all">Shipping Policy</a></li>
+                    <li><a href="#" class="hover:text-brand-500 transition-all">Returns</a></li>
+                </ul>
+            </div>
+
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 border-t border-white/5 pt-12 text-center text-gray-400 text-sm">
+            &copy; 2026 SheriffHub. All rights reserved.
+        </div>
+    </footer>
+
+
+    <button class="fixed bottom-8 right-8 w-14 h-14 brand-gradient rounded-full flex items-center justify-center text-white shadow-[0_4px_25px_rgba(20,184,166,0.4)] z-50 transition-all hover:scale-105 focus:outline-none">
+        <i class="fa-solid fa-messages text-2xl"></i>
+    </button>
+
 </body>
 </html>
